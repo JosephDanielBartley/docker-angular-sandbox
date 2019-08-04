@@ -1,19 +1,14 @@
 # base image
-FROM node:10.16.1
+FROM node:10.16.1 AS builder
 
 # set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY . .
 
-# install and cache app dependencies
-COPY package.json /app/package.json
-RUN npm install \
-    npm install -g @angular/cli@8.2.0
+RUN npm install
+RUN npm run build:prod
 
-# add app
-COPY . /app
+FROM nginx:1.17.2
 
-# start app
-CMD ng serve --host 0.0.0.0
+COPY --from=builder /app/dist/* /usr/share/nginx/html/
