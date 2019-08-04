@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'docker-angular-sandbox';
+
+  constructor(private appService: AppService) {
+    this.appService.getValues().subscribe(x => console.log(x));
+  }
 }
