@@ -11,5 +11,6 @@ export class AppComponent {
 
   constructor(private appService: AppService) {
     this.appService.getValues().subscribe(x => console.log(x));
+    this.appService.getDbTest().subscribe(x => console.log(x));
   }
 }
