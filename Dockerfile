@@ -6,8 +6,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install
-RUN npm run build:prod
+RUN npm install && \
+    npm run build:ssr
 
 FROM nginx:1.17.2
 
